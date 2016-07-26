@@ -1,0 +1,64 @@
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO-world.
+DATA DIVISION.
+   WORKING-STORAGE SECTION.
+   01 WS-CHOOICE PIC 9(01).
+   01 WS-CHOOICE-OK PIC 9(01).
+   01 WS-NUM1   PIC 9(02).
+   01 WS-NUM2   PIC 9(02).
+   01 WS-TOTAL  PIC 9(05).
+   01 WS-EXIT   PIC X(01).
+PROCEDURE DIVISION.
+   MOVE 'Y' TO WS-EXIT
+   
+ PERFORM UNTIL WS-EXIT = 'N'
+   INITIALIZE WS-NUM1
+   INITIALIZE WS-NUM2
+   INITIALIZE WS-CHOOICE
+   INITIALIZE WS-TOTAL
+   MOVE 'Y' TO WS-EXIT
+   MOVE 'N' TO WS-CHOOICE-OK
+   PERFORM UNTIL WS-CHOOICE-OK = 'Y'
+     DISPLAY "Calculator"
+     DISPLAY "Please select a chooice"
+     DISPLAY "1.ADD "
+     DISPLAY "2.SUBTRACT "
+     DISPLAY "3.MULTIPLIE "
+     DISPLAY "4.DIVIDE "
+     ACCEPT WS-CHOOICE
+     
+     IF WS-CHOOICE = 1 OR 2 OR 3 OR 4
+        MOVE 'Y' TO WS-CHOOICE-OK 
+        DISPLAY "Alright now please enter the first number"
+        ACCEPT WS-NUM1 
+        DISPLAY "Alright now please enter the second number"
+        ACCEPT WS-NUM2 
+        DISPLAY "Calculating..."
+     ELSE
+        DISPLAY "Please try again.."
+        CONTINUE
+     END-IF  
+   END-PERFORM 
+   
+   EVALUATE TRUE
+   WHEN WS-CHOOICE = 1
+          COMPUTE WS-TOTAL = WS-NUM1 + WS-NUM2
+          DISPLAY WS-NUM1 " + "  WS-NUM2 " = " WS-TOTAL
+   WHEN WS-CHOOICE = 2
+          COMPUTE WS-TOTAL = WS-NUM1 - WS-NUM2
+          DISPLAY WS-NUM1 " - "  WS-NUM2 " = " WS-TOTAL
+   WHEN WS-CHOOICE = 3 
+          COMPUTE WS-TOTAL = WS-NUM1 * WS-NUM2
+          DISPLAY WS-NUM1 " * "  WS-NUM2 " = " WS-TOTAL
+   WHEN WS-CHOOICE = 4 
+          COMPUTE WS-TOTAL = WS-NUM1 / WS-NUM2
+          DISPLAY WS-NUM1 " / "  WS-NUM2 " = " WS-TOTAL
+   END-EVALUATE
+   
+    
+   DISPLAY " Would you like to try again?  Y/N"
+   ACCEPT WS-EXIT
+  
+ END-PERFORM.
+   
+EXIT.
